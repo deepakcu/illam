@@ -13,9 +13,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.lang.String;
+import java.util.Comparator;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+
+class Person {
+    String name;
+    String father;
+    String mother;
+    ArrayList<String> spouses;
+    ArrayList<String> children;
+    int score;
+}
+
+class CompareObj implements Comparator<Person>{
+    @Override
+    public int compare(Person p1, Person p2) {
+        return p2.score - p1.score;
+    }
+}
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -124,32 +144,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
     }
+
     public ArrayList<String> getDbData (String key) {
         final String TABLE_NAME = "table1";
         String selectQuery = "SELECT  * FROM " + TABLE_NAME ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        ArrayList<String> list = new ArrayList<>();
-        int i = 0;
-        if (cursor.moveToFirst()) {
+
+        // search and find records
+        ArrayList<Person> plist = new ArrayList<Person>();
+        ArrayList<Person> candidates = new ArrayList<Person>();
+        Iterator<Person> personIterator = plist.iterator();
+
+        if(cursor.moveToFirst()) {
             do {
-                if(FuzzySearch.tokenSetPartialRatio(key, cursor.getString(1))>70) {
-                    stuff[i] = cursor.getString(1);
-                    stf[i] = FuzzySearch.tokenSetPartialRatio(key, cursor.getString(1));
-                    //list.add(cursor.getString(1));
-                    Log.e("ILLAM: ", Integer.toString(stf[i]));
-                    Log.e("ILLAM: PERSON:  ", stuff[i]);
-                    i++;
+                Person p = new Person();
+                p.name = cursor.getString(1);
+                p.father = cursor.getString(2);
+                p.mother = cursor.getString(3);
+                if(FuzzySearch.tokenSetPartialRatio(key, p.name)>70) {
+                    p.score = FuzzySearch.tokenSetPartialRatio(key, p.name);
+                    candidates.add(p);
+                } else {
+                    p.score = 0;
                 }
-            } while (cursor.moveToNext());
+                /*
+                for(int col=4; col<8; col++) {
+                    if(cursor.getString(col) != null) {
+                        p.spouses.add(cursor.getString(col));
+                    }
+                }
+                for(int col=8; col<16; col++) {
+                    if(cursor.getString(col) != null) {
+                        p.children.add(cursor.getString(col));
+                    }
+                }
+                */
+                plist.add(p);
+            } while(cursor.moveToNext());
         }
+
+        Collections.sort(candidates, new CompareObj());
+
+        ArrayList<String> list = new ArrayList<>();
         cursor.close();
-        sortByScore(i);
-        for(int j=0; j<=i; j++)
-        {
-            //Log.e("ILLAM: current array:  ", stuff[j]);
-            if(stuff[j]!=null)
-            list.add(stuff[j] + Integer.toString(stf[j]));
+        personIterator = candidates.iterator();
+        while(personIterator.hasNext()) {
+            list.add(personIterator.next().name);
         }
         return list;
     }
