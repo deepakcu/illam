@@ -97,23 +97,15 @@ sub genSql {
 
 	for my $i ($ged->individuals)
 	{
-    	#print $fh "INSERT INTO table1 (_id, name, father, mother) VALUES\n";
     	print $fh "INSERT INTO table1 (_id) VALUES ($cnt);\n";
-		#print $fh "($cnt,"."'".&prettyName($i->name)."',";
-
 		print $fh "UPDATE table1 SET name = '".&prettyName($i->name)."' WHERE _id = $cnt;\n";
 		if(&hasFather($i)) {
-			#print $fh "'".&prettyName($i->father->name)."',";
 			print $fh "UPDATE table1 SET father = '".&prettyName($i->father->name)."' WHERE _id = $cnt;\n";
 		} 
 
 		if(&hasMother($i)) {
-			#print $fh "'".&prettyName($i->mother->name)."'";
 			print $fh "UPDATE table1 SET mother = '".&prettyName($i->mother->name)."' WHERE _id = $cnt;\n";
 		} 
-
-		#print $fh ");\n";
-
 
         my @spouses = $i->spouse;
         my $spouse_cnt = 0;
