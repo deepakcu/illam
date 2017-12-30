@@ -6,7 +6,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -162,22 +161,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 } else {
                     p.score = 0;
                 }
-                
-				p.spouses = new ArrayList<String>();
+
+                p.spouses = new ArrayList<String>();
                 for(int col=4; col<8; col++) {
                     if(cursor.getString(col) != null) {
                         p.spouses.add(cursor.getString(col));
                     }
                 }
-				
-				p.children = new ArrayList<String>();
+
+                p.children = new ArrayList<String>();
                 for(int col=8; col<16; col++) {
                     if(cursor.getString(col) != null) {
                         p.children.add(cursor.getString(col));
                     }
                 }
-				
-                
                 plist.add(p);
             } while(cursor.moveToNext());
         }
