@@ -154,20 +154,52 @@ public class RelationshipFragment extends Fragment {
             while (sibIterator.hasNext()) {
                 Person sib = persons.get(sibIterator.next());
                 if(sib.name.equals(b.name) && b.gender.equals("female")) {
-                    rel.relation = "sister";
-                    rel.record = b;
-                    return rel;
+                    if(sib.year != null && a.year != null) {
+                        if(isAOlderThanB(sib,a)) {
+                            rel.relation = "oppol";
+                            rel.record = b;
+                            return rel;
+                        } else {
+                            rel.relation = "aniyathi";
+                            rel.record = b;
+                            return rel;
+                        }
+                    } else {
+                        rel.relation = "sister";
+                        rel.record = b;
+                        return rel;
+                    }
                 }
                 if(sib.name.equals(b.name) && b.gender.equals("male")) {
-                    rel.relation = "brother";
-                    rel.record = b;
-                    return rel;
+                    if(sib.year != null && a.year != null) {
+                        if(isAOlderThanB(sib,a)) {
+                            rel.relation = "ettan";
+                            rel.record = b;
+                            return rel;
+                        } else {
+                            rel.relation = "aniyan";
+                            rel.record = b;
+                            return rel;
+                        }
+                    } else {
+                        rel.relation = "brother";
+                        rel.record = b;
+                        return rel;
+                    }
                 }
             }
         }
 
         return rel;
     }
+
+    private Boolean isAOlderThanB(Person A, Person B) {
+        if(Integer.parseInt(B.year)-Integer.parseInt(A.year) > 0)
+            return true;
+        else
+            return false;
+    }
+
 
     private Relation defineCustomRelation(Relation custom, Relation simple)
     {
@@ -182,32 +214,209 @@ public class RelationshipFragment extends Fragment {
 
         // Custom relations
         String[][] relations = {
+                //achan
+                {"achan"     ,"achan",     "illathe muthashan"},
+                {"achan"     ,"amma",      "illathe muthashi"},
                 {"achan"     ,"wife",      "amma"},
-                {"amma"      ,"husband",   "achan"},
-                //
-                {"wife"      ,"makan",     "makan"},
-                {"wife"      ,"makal",     "makal"},
-                //
-                {"husband"   ,"makan",     "makan"},
-                {"husband"   ,"makal",     "makal"},
-                //
-                {"amma"      ,"makan",     "brother"},
-                {"amma"      ,"makal",     "sister"},
-                //
-                {"achan"      ,"makan",    "brother"},
-                {"achan"      ,"makal",    "sister"},
-                //
-                {"sister"     ,"amma",     "amma"},
-                {"brother"    ,"amma",     "amma"},
-                //
-                {"sister"     ,"achan",    "achan"},
-                {"brother"    ,"achan",    "achan"},
+                {"achan"     ,"makal",     "sister"},
+                {"achan"     ,"makan",     "brother"},
+                {"achan"     ,"oppol",     "valye achammal"},
+                {"achan"     ,"aniyathi",  "achammal"},
+                {"achan"     ,"sister",    "achammal"},
+                {"achan"     ,"ettan",     "valyachan"},
+                {"achan"     ,"aniyan",    "abhan"},
                 //
                 {"amma"      ,"achan",     "ammathe muthashan"},
                 {"amma"      ,"amma",      "ammathe muthashi"},
+                {"amma"      ,"husband",   "achan"},
+                {"amma"      ,"makal",     "sister"},
+                {"amma"      ,"makan",     "brother"},
+                {"amma"      ,"oppol",     "perashi"},
+                {"amma"      ,"aniyathi",  "chittashi"},
+                {"amma"      ,"ettan",     "valye ammaman"},
+                {"amma"      ,"aniyan",    "ammaman"},
+                {"amma"      ,"brother",   "ammaman"},
                 //
-                {"achan"      ,"achan",     "illathe muthashan"},
-                {"achan"      ,"amma",      "illathe muthashi"},
+                {"wife"      ,"makal",     "makal"},
+                {"wife"      ,"makan",     "makan"},
+                //
+                {"husband"   ,"makal",     "makal"},
+                {"husband"   ,"makan",     "makan"},
+                //
+                {"makal"     ,"achan",     "husband"},
+                {"makal"     ,"amma",      "wife"},
+                {"makal"     ,"oppol",     "makal"},
+                {"makal"     ,"aniyathi",  "makal"},
+                {"makal"     ,"sister",    "makal"},
+                {"makal"     ,"ettan",     "makan"},
+                {"makal"     ,"aniyan",    "makan"},
+                {"makal"     ,"brother",   "makan"},
+                {"makal"     ,"illathe muthashan",     "achan"},
+                {"makal"     ,"illathe muthashi",      "amma"},
+                //
+                {"makan"     ,"achan",     "husband"},
+                {"makan"     ,"amma",      "wife"},
+                {"makan"     ,"oppol",     "makal"},
+                {"makan"     ,"aniyathi",  "makal"},
+                {"makan"     ,"sister",    "makal"},
+                {"makan"     ,"ettan",     "makan"},
+                {"makan"     ,"aniyan",    "makan"},
+                {"makan"     ,"brother",   "makan"},
+                {"makan"     ,"illathe muthashan",     "achan"},
+                {"makan"     ,"illathe muthashi",      "amma"},
+                //
+                {"oppol"     ,"achan",     "achan"},
+                {"oppol"     ,"amma",      "amma"},
+                {"oppol"     ,"oppol",     "oppol"},
+                {"oppol"     ,"aniyathi",  "sister"},
+                {"oppol"     ,"sister",    "sister"},
+                {"oppol"     ,"ettan",     "brother"},
+                {"oppol"     ,"aniyan",    "brother"},
+                {"oppol"     ,"brother",   "brother"},
+                {"oppol"     ,"ammathe muthashan", "ammathe muthashan"},
+                {"oppol"	 ,"ammathe muthashi",  "ammathe muthashi"},
+                {"oppol"     ,"illathe muthashan", "illathe muthashan"},
+                {"oppol"     ,"illathe muthashi",  "illathe muthashi"},
+                {"oppol"     ,"ammathe muthabhan", "ammathe muthabhan"},
+                {"oppol"     ,"illathe muthabhan", "illathe muthabhan"},
+                {"oppol"     ,"valye achammal",	   "valye achammal"},
+                {"oppol"     ,"achammal",          "achammal"},
+                {"oppol"     ,"valyachan",         "valyachan"},
+                {"oppol"     ,"abhan",             "abhan"},
+                {"oppol"     ,"perashi",           "perashi"},
+                {"oppol"     ,"chittashi",         "chittashi"},
+                {"oppol"     ,"valyammaman",       "valyammaman"},
+                {"oppol"     ,"ammaman",           "ammaman"},
+                {"oppol"     ,"cheriyamma",        "cheriyamma"},
+                //
+                {"aniyathi"     ,"achan",     "achan"},
+                {"aniyathi"     ,"amma",      "amma"},
+                {"aniyathi"     ,"oppol",     "sister"},
+                {"aniyathi"     ,"aniyathi",  "anniyathi"},
+                {"aniyathi"     ,"sister",    "sister"},
+                {"aniyathi"     ,"ettan",     "brother"},
+                {"aniyathi"     ,"aniyan",    "brother"},
+                {"aniyathi"     ,"brother",   "brother"},
+                {"aniyathi"     ,"ammathe muthashan", "ammathe muthashan"},
+                {"aniyathi"	    ,"ammathe muthashi",  "ammathe muthashi"},
+                {"aniyathi"     ,"illathe muthashan", "illathe muthashan"},
+                {"aniyathi"     ,"illathe muthashi",  "illathe muthashi"},
+                {"aniyathi"     ,"ammathe muthabhan", "ammathe muthabhan"},
+                {"aniyathi"     ,"illathe muthabhan", "illathe muthabhan"},
+                {"aniyathi"     ,"valye achammal",	   "valye achammal"},
+                {"aniyathi"     ,"achammal",          "achammal"},
+                {"aniyathi"     ,"valyachan",         "valyachan"},
+                {"aniyathi"     ,"abhan",             "abhan"},
+                {"aniyathi"     ,"perashi",           "perashi"},
+                {"aniyathi"     ,"chittashi",         "chittashi"},
+                {"aniyathi"     ,"valyammaman",       "valyammaman"},
+                {"aniyathi"     ,"ammaman",           "ammaman"},
+                {"aniyathi"     ,"cheriyamma",        "cheriyamma"},
+                //
+                {"sister"     ,"achan",     "achan"},
+                {"sister"     ,"amma",      "amma"},
+                {"sister"     ,"oppol",     "sister"},
+                {"sister"     ,"sister",    "sister"},
+                {"sister"     ,"aniyathi",  "sister"},
+                {"sister"     ,"ettan",     "brother"},
+                {"sister"     ,"aniyan",    "brother"},
+                {"sister"     ,"brother",   "brother"},
+                {"sister"     ,"ammathe muthashan", "ammathe muthashan"},
+                {"sister"	  ,"ammathe muthashi",  "ammathe muthashi"},
+                {"sister"     ,"illathe muthashan", "illathe muthashan"},
+                {"sister"     ,"illathe muthashi",  "illathe muthashi"},
+                {"sister"     ,"ammathe muthabhan", "ammathe muthabhan"},
+                {"sister"     ,"illathe muthabhan", "illathe muthabhan"},
+                {"sister"     ,"valye achammal",	"valye achammal"},
+                {"sister"     ,"achammal",          "achammal"},
+                {"sister"     ,"valyachan",         "valyachan"},
+                {"sister"     ,"abhan",             "abhan"},
+                {"sister"     ,"perashi",           "perashi"},
+                {"sister"     ,"chittashi",         "chittashi"},
+                {"sister"     ,"valyammaman",       "valyammaman"},
+                {"sister"     ,"ammaman",           "ammaman"},
+                {"sister"     ,"cheriyamma",        "cheriyamma"},
+                //
+                {"ettan"     ,"achan",     "achan"},
+                {"ettan"     ,"amma",      "amma"},
+                {"ettan"     ,"oppol",     "oppol"},
+                {"ettan"     ,"aniyathi",  "sister"},
+                {"ettan"     ,"sister",    "sister"},
+                {"ettan"     ,"ettan",     "ettan"},
+                {"ettan"     ,"aniyan",    "brother"},
+                {"ettan"     ,"brother",   "brother"},
+                {"ettan"     ,"ammathe muthashan", "ammathe muthashan"},
+                {"ettan"	 ,"ammathe muthashi",  "ammathe muthashi"},
+                {"ettan"     ,"illathe muthashan", "illathe muthashan"},
+                {"ettan"     ,"illathe muthashi",  "illathe muthashi"},
+                {"ettan"     ,"ammathe muthabhan", "ammathe muthabhan"},
+                {"ettan"     ,"illathe muthabhan", "illathe muthabhan"},
+                {"ettan"     ,"valye achammal",	   "valye achammal"},
+                {"ettan"     ,"achammal",          "achammal"},
+                {"ettan"     ,"valyachan",         "valyachan"},
+                {"ettan"     ,"abhan",             "abhan"},
+                {"ettan"     ,"perashi",           "perashi"},
+                {"ettan"     ,"chittashi",         "chittashi"},
+                {"ettan"     ,"valyammaman",       "valyammaman"},
+                {"ettan"     ,"ammaman",           "ammaman"},
+                {"ettan"     ,"cheriyamma",        "cheriyamma"},
+                //
+                {"aniyan"     ,"achan",     "achan"},
+                {"aniyan"     ,"amma",      "amma"},
+                {"aniyan"     ,"oppol",     "sister"},
+                {"aniyan"     ,"aniyathi",  "aniyathi"},
+                {"aniyan"     ,"sister",    "sister"},
+                {"aniyan"     ,"ettan",     "brother"},
+                {"aniyan"     ,"aniyan",    "aniyan"},
+                {"aniyan"     ,"brother",   "brother"},
+                {"aniyan"     ,"ammathe muthashan", "ammathe muthashan"},
+                {"aniyan"     ,"ammathe muthashi",  "ammathe muthashi"},
+                {"aniyan"     ,"illathe muthashan", "illathe muthashan"},
+                {"aniyan"     ,"illathe muthashi",  "illathe muthashi"},
+                {"aniyan"     ,"ammathe muthabhan", "ammathe muthabhan"},
+                {"aniyan"     ,"illathe muthabhan", "illathe muthabhan"},
+                {"aniyan"     ,"valye achammal",	"valye achammal"},
+                {"aniyan"     ,"achammal",          "achammal"},
+                {"aniyan"     ,"valyachan",         "valyachan"},
+                {"aniyan"     ,"abhan",             "abhan"},
+                {"aniyan"     ,"perashi",           "perashi"},
+                {"aniyan"     ,"chittashi",         "chittashi"},
+                {"aniyan"     ,"valyammaman",       "valyammaman"},
+                {"aniyan"     ,"ammaman",           "ammaman"},
+                {"aniyan"     ,"cheriyamma",        "cheriyamma"},
+                //
+                {"brother"     ,"achan",     "achan"},
+                {"brother"     ,"amma",      "amma"},
+                {"brother"     ,"oppol",     "sister"},
+                {"brother"     ,"aniyathi",  "sister"},
+                {"brother"     ,"sister",    "sister"},
+                {"brother"     ,"ettan",     "brother"},
+                {"brother"     ,"aniyan",    "brother"},
+                {"brother"     ,"brother",   "brother"},
+                {"brother"     ,"ammathe muthashan", "ammathe muthashan"},
+                {"brother"     ,"ammathe muthashi",  "ammathe muthashi"},
+                {"brother"     ,"illathe muthashan", "illathe muthashan"},
+                {"brother"     ,"illathe muthashi",  "illathe muthashi"},
+                {"brother"     ,"ammathe muthabhan", "ammathe muthabhan"},
+                {"brother"     ,"illathe muthabhan", "illathe muthabhan"},
+                {"brother"     ,"valye achammal",	"valye achammal"},
+                {"brother"     ,"achammal",          "achammal"},
+                {"brother"     ,"valyachan",         "valyachan"},
+                {"brother"     ,"abhan",             "abhan"},
+                {"brother"     ,"perashi",           "perashi"},
+                {"brother"     ,"chittashi",         "chittashi"},
+                {"brother"     ,"valyammaman",       "valyammaman"},
+                {"brother"     ,"ammaman",           "ammaman"},
+                {"brother"     ,"cheriyamma",        "cheriyamma"},
+                //
+                {"abhan"	   ,"achan",	         "illathe muthashan"},
+                {"abhan"	   ,"amma",   	         "illathe muthashi"},
+                {"abhan"	   ,"wife",  	         "cheriyamma"},
+                {"abhan"	   ,"oppol",  	         "achammal"},
+                {"abhan"	   ,"aniyathi",          "achammal"},
+                {"abhan"	   ,"sister",  	         "achammal"},
+                {"abhan"	   ,"aniyan",  	         "abhan"},
+                //
                 //
                 {"ammathe muthashan"      ,"wife",        "ammathe muthashi"},
                 {"ammathe muthashan"      ,"brother",     "ammathe muthabhan"},
@@ -217,7 +426,12 @@ public class RelationshipFragment extends Fragment {
                 //
                 {"ammathe muthashi"      ,"husband",      "ammathe muthashan"},
                 //
-                {"illathe muthashi"      ,"husband",      "illathe muthashan"}
+                {"illathe muthashi"      ,"husband",      "illathe muthashan"},
+                //
+                {"sister"     ,"brother",   "brother"},
+                {"sister"     ,"sister",    "sister"},
+                {"brother"    ,"brother",   "brother"},
+                {"brother"    ,"sister",    "sister"}
         };
 
         // populate hash table
@@ -236,26 +450,6 @@ public class RelationshipFragment extends Fragment {
         }
     }
 
-    private Stack<Relation> reducePass(Stack<Relation> relationStack, Stack<Relation> customRelationStack)
-    {
-        while(!relationStack.isEmpty()) {
-            Relation rel = relationStack.pop();
-
-            if(customRelationStack.isEmpty())
-                customRelationStack.push(rel);
-            else {
-                Relation top = customRelationStack.pop();
-                Relation custom = defineCustomRelation(top,rel);
-                if(custom.relation.equals("none")) {
-                    customRelationStack.push(top);
-                    customRelationStack.push(rel);
-                } else {
-                    customRelationStack.push(custom);
-                }
-            }
-        }
-        return customRelationStack;
-    }
 
 
     public String getRelation(String A, String B)
@@ -343,7 +537,6 @@ public class RelationshipFragment extends Fragment {
             if(!n.children.isEmpty()) {
                 Iterator<String> childIterator = n.children.iterator();
                 while (childIterator.hasNext()) {
-                    //System.out.println(crunchifyIterator.next());
                     Person child = persons.get(childIterator.next());
                     if(!visited.containsKey(child)) {
                         searchQ.add(child);
@@ -363,20 +556,6 @@ public class RelationshipFragment extends Fragment {
             }
         }
 
-
-
-        // first pass
-        //customRelationStack = relationStack;
-        //customRelationStack = reducePass(relationStack, customRelationStack);
-        //relationStack = (Stack<Relation>)customRelationStack.clone();
-        //Collections.reverse(relationStack);
-
-
-        // second pass
-        //customRelationStack = reducePass(relationStack, customRelationStack);
-
-        //Collections.reverse(customRelationStack);
-        //Iterator<Relation> relIterator = relationList.iterator();
         int oldLen;
         int newLen;
         do {
@@ -396,19 +575,6 @@ public class RelationshipFragment extends Fragment {
         while(!relationList.isEmpty()) {
             result = result+relationList.remove().relation;
         }
-        // diya, umadevi
-        //wife achan brother achan
-        //-->achan brother achan wife
-
-        /*
-        while(!relationStack.isEmpty()) {
-            result = result+relationStack.pop().relation;
-        }
-        */
-
-        //makal, wife, makan, husband
-        //achan, brother, achan, wife
-
 
         return result;
     }
