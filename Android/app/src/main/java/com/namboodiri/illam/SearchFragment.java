@@ -31,37 +31,48 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the fragment layout and get reference to the search view
         final View v = inflater.inflate(R.layout.fragment_search, container, false);
         final FloatingSearchView mSearchView = v.findViewById(R.id.floating_search_fragment);
+        
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
-                //do nothing for now
+                // Handle search suggestions when implemented
             }
 
             @Override
             public void onSearchAction(String query) {
+                // Get reference to the RecyclerView that will display results
                 final RecyclerView myView = v.findViewById(R.id.recycler_frag);
                 DatabaseHelper myDbHelper = new DatabaseHelper(myView.getContext());
+                
+                // Initialize the database
                 try {
                     myDbHelper.createDataBase();
                 } catch (IOException ioe) {
                     throw new Error("Unable to create database");
                 }
+                
+                // Open database connection
                 try {
                     myDbHelper.openDataBase();
                 } catch (SQLException sqle) {
                     throw sqle;
                 }
+                
+                // Set up RecyclerView with data from database query
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(myDbHelper.getDbData(query));
                 myView.setAdapter(adapter);
+                
+                // Configure RecyclerView layout and make it visible
                 LinearLayoutManager llm = new LinearLayoutManager(myView.getContext());
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 myView.setLayoutManager(llm);
                 myView.setVisibility(View.VISIBLE);
             }
         });
+        
         return v;
     }
 

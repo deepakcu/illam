@@ -3,17 +3,20 @@ package com.namboodiri.illam;
 import java.util.ArrayList;
 
 /**
- * Created by root on 12/29/17.
+ * Represents a person in a family tree with their relationships and personal details.
+ * Used to track family connections and genealogical information.
  */
-
 public class Person {
+    // Basic personal information
     String name;
-    String father;
-    String mother;
-    ArrayList<String> spouses;
-    ArrayList<String> children;
-    ArrayList<String> siblings;
-    int score;
     String gender;
     String year;
+    int score;      // Scoring metric for the person (purpose determined by application)
+
+    // Family relationships
+    String father;  // Father's name
+    String mother;  // Mother's name
+    ArrayList<String> spouses = new ArrayList<>();   // List of spouse names
+    ArrayList<String> children = new ArrayList<>();  // List of children's names
+    ArrayList<String> siblings = new ArrayList<>();  // List of sibling names
 }

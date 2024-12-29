@@ -20,61 +20,49 @@ import java.util.Set;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    String key;
-    DatabaseHelper myDbHelper = new DatabaseHelper(this);
+    private String key;
+    private DatabaseHelper myDbHelper = new DatabaseHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        // Extract search key from intent and remove relationship text in parentheses
         String searchKey = getIntent().getStringExtra("KEY");
         key = searchKey;
-        Log.e("ILLAM: SELECTED: ", searchKey);
-
-        // remove relationship string from search key
-        // relationship string is enclosed in paranthesis
         key = key.replaceAll("\\(.*?\\) ?", "");
-        Log.e("ILLAM: SELECTED: ", key);
 
+        // Initialize database connection
         try {
             myDbHelper.createDataBase();
+            myDbHelper.openDataBase();
         } catch (IOException ioe) {
             throw new Error("Unable to create database");
-        }
-        try {
-            myDbHelper.openDataBase();
-        }catch(SQLException sqle){
+        } catch(SQLException sqle){
             throw sqle;
         }
 
-
+        // Initialize UI elements for displaying person details
         TextView name = findViewById(R.id.name);
         TextView father = findViewById(R.id.father);
         TextView mother = findViewById(R.id.mother);
 
+        // Get person data from database
         Hashtable<String, Person> persons = myDbHelper.getPersons();
-        //Person p = myDbHelper.getPerson(persons, searchKey);
         Person p = myDbHelper.getPerson(persons, key);
 
-        //Find deepak
+        // Find reference person (Deepak) for relationship calculations
         Set<String> keys = persons.keySet();
-        RelationshipFragment rf = new RelationshipFragment();
-
         Person me = new Person();
-        Person dpk = me;
         for(String key: keys) {
-            //Log.e("ILLAM","Person is "+key);
-            if(persons.containsKey(key)) {
-                //Log.e("ILLAM", "Key exists");
-                if(key.contains("Deepak Unnikrishnan")) {
-                    Log.e("ILLAM", "Found Deepak");
-                    me = persons.get(key);
-                    break;
-                }
-            } else {
-                Log.e("ILLAM", "Key does not exist");
+            if(persons.containsKey(key) && key.contains("Deepak Unnikrishnan")) {
+                me = persons.get(key);
+                break;
             }
         }
 
+        // Display basic person information
         RelationUtils utils = new RelationUtils();
         name.setText(p.name);
         father.setText(p.father);
@@ -87,17 +75,17 @@ public class ResultsActivity extends AppCompatActivity {
             name.setText(p.name);
         }
 
-        if(p.father != null)
-            //father.setText(p.father+"(Your "+utils.getRelation(me.name,p.father, myDbHelper)+")");
+        if (p.father != null) {
             father.setText(p.father);
-        else
-            father.setText(p.father);
+        } else {
+            father.setText("N/A");
+        }
 
-        if(p.mother != null)
-            //mother.setText(p.mother+"(Your "+utils.getRelation(me.name,p.mother, myDbHelper)+")");
+        if (p.mother != null) {
             mother.setText(p.mother);
-        else
-            father.setText(p.mother);
+        } else {
+            mother.setText("N/A");
+        }
 
         //mother.setText(p.mother+"("+utils.getRelation(me.name,p.mother, myDbHelper)+")");
         //Log.e("ILLAM",p.name+"("+utils.getRelation(me.name,p.name, myDbHelper)+")");
@@ -105,27 +93,25 @@ public class ResultsActivity extends AppCompatActivity {
         //Log.e("ILLAM", p.mother+"("+utils.getRelation(me.name,p.mother, myDbHelper)+")");
 
         // Set values of dynamic cards (spouse)
-        ArrayList<String> spouseWithRels = new ArrayList<String>();
-        Iterator<String> spouseIterator = p.spouses.iterator();
-        while (spouseIterator.hasNext()) {
-            String sp = spouseIterator.next();
-            String rel = "(Your "+utils.getRelation(me.name, sp, myDbHelper)+")";
+        ArrayList<String> spouseWithRels = new ArrayList<>();
+        for (String sp : p.spouses) {
+            String rel = "(Your " + utils.getRelation(me.name, sp, myDbHelper) + ")";
         }
 
-
-
+        // Set up RecyclerView for spouse list
         RecyclerView spouse = findViewById(R.id.recycler_spouse);
         RecyclerViewAdapter adapter_spouse = new RecyclerViewAdapter(p.spouses);
         TextView sp = findViewById(R.id.spouse_head);
-        if (adapter_spouse.getItemCount()==0)
+        if (adapter_spouse.getItemCount() == 0) {
             sp.setVisibility(View.GONE);
+        }
         spouse.setAdapter(adapter_spouse);
         spouse.setNestedScrollingEnabled(false);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         spouse.setLayoutManager(llm);
 
-        // Set values of dynamic cards (child)
+        // Set up RecyclerView for children list
         RecyclerView child = findViewById(R.id.recycler_child);
         child.setNestedScrollingEnabled(false);
         RecyclerViewAdapter adapter_child = new RecyclerViewAdapter(p.children);

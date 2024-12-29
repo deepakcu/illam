@@ -66,359 +66,333 @@ public class RelationUtils {
         ComplexRelation c = new ComplexRelation(1,list);
         Relation rel = new Relation();
 
-        // Achan
-        if(a.relation.equals("achan") && b.relation.equals("achan")) {
+        if (a.relation.equals("achan") && b.relation.equals("achan")) {
             rel = new Relation("illathe muthashan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("amma")) {
+        if (a.relation.equals("achan") && b.relation.equals("amma")) {
             rel = new Relation("illathe muthashi", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("wife")) {
+        if (a.relation.equals("achan") && b.relation.equals("wife")) {
             rel = new Relation("amma", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("makal")) {
+        if (a.relation.equals("achan") && b.relation.equals("makal")) {
             rel = new Relation("sister", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("makan")) {
+        if (a.relation.equals("achan") && b.relation.equals("makan")) {
             rel = new Relation("brother", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("aniyan")) {
+        if (a.relation.equals("achan") && b.relation.equals("aniyan")) {
             rel = new Relation("abhan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("ettan")) {
+        if (a.relation.equals("achan") && b.relation.equals("ettan")) {
             rel = new Relation("valyachan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("brother")) {
-            if(a.record.year != null && b.record.year != null) {
-                if(isAOlderThanB(a.record,b.record)) {
+        if (a.relation.equals("achan") && b.relation.equals("brother")) {
+            if (a.record.year != null && b.record.year != null) {
+                if (isAOlderThanB(a.record, b.record)) {
                     rel = new Relation("abhan", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 } else {
                     rel = new Relation("valyachan", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 }
+                rel.record = b.record;
+                c.complexList.add(rel);
+                return c.complexList;
             }
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("aniyathi")) {
+        if (a.relation.equals("achan") && b.relation.equals("aniyathi")) {
             rel = new Relation("achammal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("oppol")) {
+        if (a.relation.equals("achan") && b.relation.equals("oppol")) {
             rel = new Relation("valyachammal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("sister")) {
-            if(a.record.year != null && b.record.year != null) {
-                if(isAOlderThanB(a.record,b.record)) {
+        if (a.relation.equals("achan") && b.relation.equals("sister")) {
+            if (a.record.year != null && b.record.year != null) {
+                if (isAOlderThanB(a.record, b.record)) {
                     rel = new Relation("achammal", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 } else {
                     rel = new Relation("valyachammal", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 }
+                rel.record = b.record;
+                c.complexList.add(rel);
+                return c.complexList;
             }
         }
 
-        // Amma
-        if(a.relation.equals("amma") && b.relation.equals("achan")) {
+        if (a.relation.equals("amma") && b.relation.equals("achan")) {
             rel = new Relation("ammathe muthashan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("amma")) {
+        if (a.relation.equals("amma") && b.relation.equals("amma")) {
             rel = new Relation("ammathe muthashi", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("husband")) {
+        if (a.relation.equals("amma") && b.relation.equals("husband")) {
             rel = new Relation("achan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("makal")) {
+        if (a.relation.equals("amma") && b.relation.equals("makal")) {
             rel = new Relation("sister", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("makan")) {
+        if (a.relation.equals("amma") && b.relation.equals("makan")) {
             rel = new Relation("brother", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("aniyan")) {
+        if (a.relation.equals("amma") && b.relation.equals("aniyan")) {
             rel = new Relation("ammaman", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("achan") && b.relation.equals("ettan")) {
+        if (a.relation.equals("achan") && b.relation.equals("ettan")) {
             rel = new Relation("valyammaman", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("brother")) {
+        if (a.relation.equals("amma") && b.relation.equals("brother")) {
             Log.e("ILLAM","amma+brother"+a.record.year+","+b.record.year);
-            if(a.record.year != null && b.record.year != null) {
-                if(isAOlderThanB(a.record,b.record)) {
+            if (a.record.year != null && b.record.year != null) {
+                if (isAOlderThanB(a.record, b.record)) {
                     rel = new Relation("ammaman", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 } else {
                     rel = new Relation("valyammaman", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 }
+                rel.record = b.record;
+                c.complexList.add(rel);
+                return c.complexList;
             }
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("aniyathi")) {
+        if (a.relation.equals("amma") && b.relation.equals("aniyathi")) {
             rel = new Relation("chittashi", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("oppol")) {
+        if (a.relation.equals("amma") && b.relation.equals("oppol")) {
             rel = new Relation("perashi", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("amma") && b.relation.equals("sister")) {
-            if(a.record.year != null && b.record.year != null) {
-                if(isAOlderThanB(a.record,b.record)) {
+        if (a.relation.equals("amma") && b.relation.equals("sister")) {
+            if (a.record.year != null && b.record.year != null) {
+                if (isAOlderThanB(a.record, b.record)) {
                     rel = new Relation("perashi", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 } else {
                     rel = new Relation("chittashi", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 }
+                rel.record = b.record;
+                c.complexList.add(rel);
+                return c.complexList;
             }
         }
 
-        // reduce the relation - someone's brother to aniyan or ettan
-        if(b.relation.equals("brother")) {
+        if (b.relation.equals("brother")) {
             Log.e("ILLAML","Reducing brother");
-            if(a.record.year != null && b.record.year != null) {
-                if(isAOlderThanB(a.record,b.record)) {
+            if (a.record.year != null && b.record.year != null) {
+                if (isAOlderThanB(a.record, b.record)) {
                     rel = new Relation("aniyan", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 } else {
                     rel = new Relation("ettan", 1);
-                    rel.record = b.record;
-                    c.complexList.add(rel);
-                    return c.complexList;
                 }
+                rel.record = b.record;
+                c.complexList.add(rel);
+                return c.complexList;
             }
         }
 
-        // Wife
-        if(a.relation.equals("wife") && b.relation.equals("makal")) {
+        if (a.relation.equals("wife") && b.relation.equals("makal")) {
             rel = new Relation("makal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("wife") && b.relation.equals("makan")) {
+        if (a.relation.equals("wife") && b.relation.equals("makan")) {
             rel = new Relation("makan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // Husband
-        if(a.relation.equals("husband") && b.relation.equals("makal")) {
+        if (a.relation.equals("husband") && b.relation.equals("makal")) {
             rel = new Relation("makal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("husband") && b.relation.equals("makan")) {
+        if (a.relation.equals("husband") && b.relation.equals("makan")) {
             rel = new Relation("makal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // Makal
-        if(a.relation.equals("makal") && b.relation.equals("achan")) {
+        if (a.relation.equals("makal") && b.relation.equals("achan")) {
             rel = new Relation("husband", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("makal") && b.relation.equals("amma")) {
+        if (a.relation.equals("makal") && b.relation.equals("amma")) {
             rel = new Relation("wife", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("makal") && (b.relation.equals("oppol") || b.relation.equals("aniyathi") || b.relation.equals("sister"))) {
+        if (a.relation.equals("makal") && (b.relation.equals("oppol") || b.relation.equals("aniyathi") || b.relation.equals("sister"))) {
             rel = new Relation("makal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("makal") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
+        if (a.relation.equals("makal") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
             rel = new Relation("brother", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // Makan
-        if(a.relation.equals("makan") && b.relation.equals("achan")) {
+        if (a.relation.equals("makan") && b.relation.equals("achan")) {
             rel = new Relation("husband", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("makan") && b.relation.equals("amma")) {
+        if (a.relation.equals("makan") && b.relation.equals("amma")) {
             rel = new Relation("wife", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("makan") && (b.relation.equals("oppol") || b.relation.equals("aniyathi") || b.relation.equals("sister"))) {
+        if (a.relation.equals("makan") && (b.relation.equals("oppol") || b.relation.equals("aniyathi") || b.relation.equals("sister"))) {
             rel = new Relation("makal", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("makan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
+        if (a.relation.equals("makan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
             rel = new Relation("brother", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // Abhan
-        if(a.relation.equals("abhan") && b.relation.equals("achan")) {
+        if (a.relation.equals("abhan") && b.relation.equals("achan")) {
             rel = new Relation("illathe muthashan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("abhan") && b.relation.equals("amma")) {
+        if (a.relation.equals("abhan") && b.relation.equals("amma")) {
             rel = new Relation("illathe muthashi", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("abhan") && b.relation.equals("wife")) {
+        if (a.relation.equals("abhan") && b.relation.equals("wife")) {
             rel = new Relation("cheriyamma", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("abhan") && (b.relation.equals("oppol") || b.relation.equals("aniyathi") || b.relation.equals("sister"))) {
+        if (a.relation.equals("abhan") && (b.relation.equals("oppol") || b.relation.equals("aniyathi") || b.relation.equals("sister"))) {
             rel = new Relation("sister", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        if(a.relation.equals("abhan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
+        if (a.relation.equals("abhan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
             rel = new Relation("brother", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // Illathe muthashan
-        if(a.relation.equals("illathe muthashan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
+        if (a.relation.equals("illathe muthashan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
             rel = new Relation("illathe muthabhan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // Ammathe muthashan
-        if(a.relation.equals("ammathe muthashan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
+        if (a.relation.equals("ammathe muthashan") && (b.relation.equals("ettan") || b.relation.equals("aniyan") || b.relation.equals("brother"))) {
             rel = new Relation("ammathe muthabhan", 1);
             rel.record = b.record;
             c.complexList.add(rel);
             return c.complexList;
         }
 
-        // no match
-        ArrayList<Relation> r = new ArrayList<Relation>();
+        ArrayList<Relation> r = new ArrayList<>();
         r.add(a);
         r.add(b);
         return r;
@@ -482,41 +456,14 @@ public class RelationUtils {
             while (sibIterator.hasNext()) {
                 Person sib = persons.get(sibIterator.next());
                 if(sib.name.equals(b.name) && b.gender.equals("female")) {
-                    /*
-                    if(sib.year != null && a.year != null) {
-                        if(isAOlderThanB(sib,a)) {
-                            rel.relation = "oppol";
-                            rel.record = b;
-                            return rel;
-                        } else {
-                            rel.relation = "aniyathi";
-                            rel.record = b;
-                            return rel;
-                        }
-                    } else {
-                    */
                     rel.relation = "sister";
                     rel.record = b;
                     return rel;
-                    //}
                 }
                 if(sib.name.equals(b.name) && b.gender.equals("male")) {
-                    /*
-                    if(sib.year != null && a.year != null) {
-                        if(isAOlderThanB(sib,a)) {
-                            rel.relation = "ettan";
-                            rel.record = b;
-                            return rel;
-                        } else {
-                            rel.relation = "aniyan";
-                            rel.record = b;
-                            return rel;
-                        }
-                    } else {*/
                     rel.relation = "brother";
                     rel.record = b;
                     return rel;
-                    //}
                 }
             }
         }
@@ -525,10 +472,7 @@ public class RelationUtils {
     }
 
     private Boolean isAOlderThanB(Person A, Person B) {
-        if(Integer.parseInt(B.year)-Integer.parseInt(A.year) > 0)
-            return true;
-        else
-            return false;
+        return Integer.parseInt(B.year) - Integer.parseInt(A.year) > 0;
     }
 
     static String printList(ArrayList<Relation> list) {
@@ -536,8 +480,6 @@ public class RelationUtils {
         if(!list.isEmpty()) {
             for(int i=0; i<list.size(); i++) {
                 ret = ret+list.get(i).relation+",yr="+list.get(i).record.year+",name="+list.get(i).record.name;
-                //System.out.print();
-                //Log.e("",list.get(i).relation+",");
             }
         }
         return ret;
@@ -551,23 +493,22 @@ public class RelationUtils {
         double min;
         int s; //subsequences
 
-        // initialize
         for(i=0; i<relations.size(); i++) {
             for(j=0; j<relations.size(); j++) {
                 if(i==j) {
-                    ArrayList<Relation> list = new ArrayList<Relation>();
+                    ArrayList<Relation> list = new ArrayList<>();
                     list.add(relations.get(i));
                     ComplexRelation r = new ComplexRelation(1,list);
 
                     cost_matrix[i][j] = r;
                 }
                 else if(i > j) {
-                    ArrayList<Relation> list = new ArrayList<Relation>();
+                    ArrayList<Relation> list = new ArrayList<>();
                     ComplexRelation r = new ComplexRelation(0, list);
                     cost_matrix[i][j] = r;
                 }
                 else {
-                    ArrayList<Relation> list = new ArrayList<Relation>();
+                    ArrayList<Relation> list = new ArrayList<>();
                     ComplexRelation r = new ComplexRelation(Integer.MAX_VALUE, list);
                     cost_matrix[i][j] = r;
                 }
@@ -583,7 +524,7 @@ public class RelationUtils {
                 for(k=i; k<j; k++) {
 
                     double cur_cost = 0;
-                    ArrayList<Relation> red_list = new ArrayList<Relation>();
+                    ArrayList<Relation> red_list = new ArrayList<>();
                     if(cost_matrix[i][k].complexList.size() == 1 && cost_matrix[k+1][j].complexList.size() == 1) {
                         // potential for reduction
                         red_list = reduceRelation(cost_matrix[i][k].complexList.get(0), cost_matrix[k+1][j].complexList.get(0));
@@ -602,7 +543,6 @@ public class RelationUtils {
             }
         }
 
-
         String line="";
         for(i=0; i<relations.size(); i++) {
             for(j=0; j<relations.size(); j++) {
@@ -616,7 +556,6 @@ public class RelationUtils {
             //System.out.println("");
         }
 
-        //return cost_matrix[0][relations.size()-1].cost;
         return cost_matrix[0][relations.size()-1].complexList;
     }
 
@@ -625,12 +564,12 @@ public class RelationUtils {
         String result = "";
         LinkedList<Relation> customRelationList = new LinkedList<>();
         LinkedList<Relation> relationList = new LinkedList<>();
-        Queue<Person> searchQ = new LinkedList<Person>();
+        Queue<Person> searchQ = new LinkedList<>();
         boolean found = false;
 
         DatabaseHelper myDbHelper = myDbH;
 
-        Hashtable<Person, Person> predecessor = new Hashtable<Person, Person>();
+        Hashtable<Person, Person> predecessor = new Hashtable<>();
         Hashtable<Person, Integer> visited = new Hashtable<>();
 
         Log.e("ILLAM","String A is "+A);
@@ -666,24 +605,9 @@ public class RelationUtils {
                 }
             }
 
-            /*
-            if(!n.siblings.isEmpty()) {
-                Iterator<String> sibIterator = n.siblings.iterator();
-                while (sibIterator.hasNext()) {
-                    //System.out.println(crunchifyIterator.next());
-                    Person sib = persons.get(sibIterator.next());
-                    if(!visited.containsKey(sib)) {
-                        searchQ.add(sib);
-                        predecessor.put(sib,n);
-                    }
-                }
-            }
-            */
-
             if(!n.spouses.isEmpty()) {
                 Iterator<String> spouseIterator = n.spouses.iterator();
                 while (spouseIterator.hasNext()) {
-                    //System.out.println(crunchifyIterator.next());
                     Person spouse = persons.get(spouseIterator.next());
                     if(!visited.containsKey(spouse)) {
                         searchQ.add(spouse);
@@ -726,7 +650,6 @@ public class RelationUtils {
 
         if(visited.get(b) == 1) {
             Person n = b;
-            //relationList.addLast(dummy);
             while(!n.name.equals(a.name)) {
                 Person pred = predecessor.get(n);
                 relationList.addFirst(defineSimpleRelation(pred,n,persons));
@@ -735,55 +658,12 @@ public class RelationUtils {
             relationList.addFirst(dummy);
         }
 
-        /*
-        // shorten sibling relations
-        String[] sibRelations = {"brother","sister","ettan","oppol","aniyan","aniyathi"};
-
-        int oldLen;
-        int newLen;
-        do {
-            oldLen = relationList.size();
-            for (int i = 0; i < oldLen - 1; i++) {
-                if(relationList.get(i) != null && relationList.get(i+1) != null) {
-                    if(Arrays.asList(sibRelations).contains(relationList.get(i).relation) &&
-                            Arrays.asList(sibRelations).contains(relationList.get(i+1).relation)) {
-                        relationList.set(i, relationList.get(i+1));
-                        relationList.set(i+1, null);
-                    }
-                }
-            }
-            // remove all elements set to null
-            relationList.remove(null);
-            newLen = relationList.size();
-        } while(newLen < oldLen);
-
-        // the relation represents two people A and B and defines the relationship
-        // B is A's "relation"
-        // defineCustomRelation must return an array of relations
-        // allows rewording certain relationships
-        // e.g. illathe muthashan sister = achan achammal
-
-
-        do {
-            oldLen = relationList.size();
-            for (int i = 0; i < oldLen - 1; i++) {
-                Relation custom = defineCustomRelation(relationList.get(i), relationList.get(i + 1));
-                if (!custom.relation.equals("none")) {
-                    relationList.set(i, custom);
-                    relationList.set(i + 1, null);
-                }
-            }
-            // remove all elements set to null
-            relationList.remove(null);
-            newLen = relationList.size();
-        } while(newLen < oldLen);
-        */
         Iterator<Relation> my = relationList.iterator();
         while (my.hasNext()) {
             Log.e("ILLAM:","Hello "+my.next().relation);
         }
 
-        ArrayList<Relation> t = new ArrayList<Relation>();
+        ArrayList<Relation> t = new ArrayList<>();
         t.addAll(relationList);
         t = getRelationDP(t);
 
@@ -801,6 +681,5 @@ public class RelationUtils {
 
         return result;
     }
-
 
 }

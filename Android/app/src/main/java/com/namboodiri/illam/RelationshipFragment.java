@@ -50,15 +50,14 @@ public class RelationshipFragment extends Fragment {
         TextView person2 = frag.findViewById(R.id.rel2);
         person1.setText(name1);
         person2.setText(name2);
-        if(!person1.getText().toString().equalsIgnoreCase("Select Person 1") && !person1.getText().toString().equalsIgnoreCase("Select Person 2"))
-        {
+        
+        // Simplified condition check
+        boolean validPersons = !person1.getText().toString().equalsIgnoreCase("Select Person 1") && 
+                             !person1.getText().toString().equalsIgnoreCase("Select Person 2");
+                             
+        if(validPersons) {
             Button search = frag.findViewById(R.id.find_rel);
-            search.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onSearchClick(v);
-                }
-            });
+            search.setOnClickListener(v -> onSearchClick(v));
             search.setEnabled(true);
         }
 
