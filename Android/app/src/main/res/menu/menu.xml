@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.HostActivity">
+
+    <!-- The "About" menu item -->
     <item
         android:id="@+id/about"
-        android:title="About"
-        app:showAsAction="never"/>
+        android:title="@string/menu_about"
+        app:showAsAction="never" />
 </menu>

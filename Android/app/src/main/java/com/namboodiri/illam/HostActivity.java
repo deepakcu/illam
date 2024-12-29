@@ -1,15 +1,16 @@
 package com.namboodiri.illam;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import com.namboodiri.illam.R;
 
 import org.w3c.dom.Text;
 
@@ -69,14 +70,12 @@ public class HostActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.about: {
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                break;
-            }
+        if (item.getItemId() == R.id.about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            return true;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
     public void onDestroy()

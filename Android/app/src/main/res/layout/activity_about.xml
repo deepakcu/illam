@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.namboodiri.illam.AboutActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -18,6 +20,7 @@
             android:text="About Illam"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="50sp" />
+
         <TextView
             android:id="@+id/subtitle1"
             android:layout_width="wrap_content"
@@ -28,14 +31,14 @@
             android:text="Developers"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-            <TextView
+        <TextView
             android:id="@+id/dev1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/subtitle1"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
-            android:text="Deepak Unnikrishnan  &lt;deepak.cu@gmail.com&gt;"
+            android:text="Deepak Unnikrishnan &lt;deepak.cu@gmail.com&gt;"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <TextView
@@ -45,8 +48,9 @@
             android:layout_below="@+id/dev1"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
-            android:text="Lekshmi G Krishnan  &lt;lekshmi.g.krishnan@gmail.com&gt;"
+            android:text="Lekshmi G Krishnan &lt;lekshmi.g.krishnan@gmail.com&gt;"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
         <TextView
             android:id="@+id/dev3"
             android:layout_width="wrap_content"
@@ -54,7 +58,7 @@
             android:layout_below="@+id/dev2"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
-            android:text="Nikhil Punathil  &lt;nikhilpe@gmail.com&gt;"
+            android:text="Nikhil Punathil &lt;nikhilpe@gmail.com&gt;"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <TextView
@@ -78,4 +82,4 @@
             android:text="https://github.com/deepakcu/illam"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

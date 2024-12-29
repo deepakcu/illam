@@ -2,10 +2,10 @@ package com.namboodiri.illam;
 
 import android.content.Intent;
 import android.database.SQLException;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -83,16 +83,19 @@ public class ResultsActivity extends AppCompatActivity {
         if(me.name.equals(p.name)) {
             name.setText(p.name);
         } else {
-            name.setText(p.name + "(Your " + utils.getRelation(me.name, p.name, myDbHelper) + ")");
+            //name.setText(p.name + "(Your " + utils.getRelation(me.name, p.name, myDbHelper) + ")");
+            name.setText(p.name);
         }
 
         if(p.father != null)
-            father.setText(p.father+"(Your "+utils.getRelation(me.name,p.father, myDbHelper)+")");
+            //father.setText(p.father+"(Your "+utils.getRelation(me.name,p.father, myDbHelper)+")");
+            father.setText(p.father);
         else
             father.setText(p.father);
 
         if(p.mother != null)
-            mother.setText(p.mother+"(Your "+utils.getRelation(me.name,p.mother, myDbHelper)+")");
+            //mother.setText(p.mother+"(Your "+utils.getRelation(me.name,p.mother, myDbHelper)+")");
+            mother.setText(p.mother);
         else
             father.setText(p.mother);
 
