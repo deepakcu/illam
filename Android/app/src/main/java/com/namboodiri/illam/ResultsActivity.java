@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
+
+import com.bumptech.glide.Glide;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ResultsActivity extends AppCompatActivity {
 
@@ -100,7 +104,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         // Set up RecyclerView for spouse list
         RecyclerView spouse = findViewById(R.id.recycler_spouse);
-        RecyclerViewAdapter adapter_spouse = new RecyclerViewAdapter(p.spouses);
+        RecyclerViewAdapter adapter_spouse = new RecyclerViewAdapter(p.spouses, this);
         TextView sp = findViewById(R.id.spouse_head);
         if (adapter_spouse.getItemCount() == 0) {
             sp.setVisibility(View.GONE);
@@ -114,7 +118,7 @@ public class ResultsActivity extends AppCompatActivity {
         // Set up RecyclerView for children list
         RecyclerView child = findViewById(R.id.recycler_child);
         child.setNestedScrollingEnabled(false);
-        RecyclerViewAdapter adapter_child = new RecyclerViewAdapter(p.children);
+        RecyclerViewAdapter adapter_child = new RecyclerViewAdapter(p.children, this);
         TextView ch = findViewById(R.id.child_head);
         if (adapter_child.getItemCount()==0)
             ch.setVisibility(View.GONE);
@@ -122,6 +126,46 @@ public class ResultsActivity extends AppCompatActivity {
         LinearLayoutManager llm2 = new LinearLayoutManager(this);
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         child.setLayoutManager(llm2);
+
+        // Get references to all three CircleImageViews
+        CircleImageView nameImage = findViewById(R.id.profile_image_name);    // You'll need to add this ID
+        CircleImageView fatherImage = findViewById(R.id.profile_image_father); // You'll need to add this ID
+        CircleImageView motherImage = findViewById(R.id.profile_image);       // This one exists
+
+        // Load images for each person
+        loadProfileImage(nameImage, p.name);
+        if (p.father != null) {
+            loadProfileImage(fatherImage, p.father);
+        }
+        if (p.mother != null) {
+            loadProfileImage(motherImage, p.mother);
+        }
+    }
+
+    private void loadProfileImage(ImageView imageView, String name) {
+        String imageUrl = buildImageUrlFromName(name);
+        
+        // Check if image exists in assets
+        try {
+            getAssets().open(imageUrl);
+            imageUrl = "file:///android_asset/" + imageUrl;
+        } catch (IOException e) {
+            imageUrl = "file:///android_asset/profile_def.png";
+        }
+        
+        Glide.with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.profile)
+            .error(R.drawable.profile)
+            .circleCrop()
+            .into(imageView);
+    }
+
+    private String buildImageUrlFromName(String name) {
+        return name.toLowerCase()
+                  .trim()
+                  .replaceAll("\\s+", "_")
+                  + ".jpg";
     }
 
     public void clicked(View v)

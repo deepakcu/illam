@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment {
                 }
                 
                 // Set up RecyclerView with data from database query
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(myDbHelper.getDbData(query));
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(myDbHelper.getDbData(query), requireContext());
                 myView.setAdapter(adapter);
                 
                 // Configure RecyclerView layout and make it visible

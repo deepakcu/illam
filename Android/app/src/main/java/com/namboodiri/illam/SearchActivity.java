@@ -56,7 +56,7 @@ public class SearchActivity extends AppCompatActivity {
                     throw sqle;
                 }
                 
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(myDbHelper.getDbData(query));
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(myDbHelper.getDbData(query), myView.getContext());
                 myView.setAdapter(adapter);
                 
                 LinearLayoutManager llm = new LinearLayoutManager(myView.getContext());

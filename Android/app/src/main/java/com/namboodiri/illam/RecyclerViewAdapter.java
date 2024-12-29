@@ -7,16 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import android.content.Context;
+import android.widget.ImageView;
+import android.util.Log;
+import java.io.IOException;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private ArrayList<String> myValues;
-    private static int caller = 0;
-    private static int toSend = 0;
+    public static int caller = 0;
+    public static int toSend = 0;
+    private Context context;
 
-    public RecyclerViewAdapter(ArrayList<String> myValues) {
+    public RecyclerViewAdapter(ArrayList<String> myValues, Context context) {
         this.myValues = myValues;
+        this.context = context;
     }
 
     @Override
@@ -28,6 +35,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.myTextView.setText(myValues.get(position));
+        String imageUrl = buildImageUrlFromName(myValues.get(position));
+        
+        // Check if image exists in assets
+        try {
+            context.getAssets().open(imageUrl);
+            imageUrl = "file:///android_asset/" + imageUrl;
+        } catch (IOException e) {
+            imageUrl = "file:///android_asset/profile_def.png"; // Image doesn't exist, set empty URL
+        }
+        
+        Log.e("ILLAM IMAGE", imageUrl);
+        Glide.with(context)
+            .load(imageUrl)
+            .placeholder(R.drawable.profile)
+            .error(R.drawable.profile)
+            .circleCrop()
+            .into(holder.profileImageView);
+    }
+
+    private String buildImageUrlFromName(String name) {
+        return name.toLowerCase()
+                  .trim()
+                  .replaceAll("\\s+", "_")
+                  + ".jpg";
     }
 
     @Override
@@ -37,10 +68,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView myTextView;
+        private ImageView profileImageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.text_cardview);
+            profileImageView = itemView.findViewById(R.id.profile_image);
             CardView myCard = itemView.findViewById(R.id.card);
             
             myCard.setOnClickListener(v -> {

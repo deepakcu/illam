@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import org.w3c.dom.Text;
 
@@ -25,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.List;
 import java.util.Set;
+import java.io.IOException;
+
+import com.bumptech.glide.Glide;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class RelationshipFragment extends Fragment {
@@ -48,8 +53,15 @@ public class RelationshipFragment extends Fragment {
         View frag = inflater.inflate(R.layout.fragment_relationship, container, false);
         TextView person1 = frag.findViewById(R.id.rel1);
         TextView person2 = frag.findViewById(R.id.rel2);
+        CircleImageView image1 = frag.findViewById(R.id.profile_image_person1);
+        CircleImageView image2 = frag.findViewById(R.id.profile_image_person2);
+        
         person1.setText(name1);
         person2.setText(name2);
+        
+        // Load profile images
+        loadProfileImage(image1, name1);
+        loadProfileImage(image2, name2);
         
         // Simplified condition check
         boolean validPersons = !person1.getText().toString().equalsIgnoreCase("Select Person 1") && 
@@ -420,5 +432,35 @@ public class RelationshipFragment extends Fragment {
         }
     }
 
+    private void loadProfileImage(ImageView imageView, String name) {
+        // Don't load image for placeholder text
+        if (name.equals("Select Person 1") || name.equals("Select Person 2")) {
+            return;
+        }
+
+        String imageUrl = buildImageUrlFromName(name);
+        
+        // Check if image exists in assets
+        try {
+            getActivity().getAssets().open(imageUrl);
+            imageUrl = "file:///android_asset/" + imageUrl;
+        } catch (IOException e) {
+            imageUrl = "file:///android_asset/profile_def.png";
+        }
+        
+        Glide.with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.profile)
+            .error(R.drawable.profile)
+            .circleCrop()
+            .into(imageView);
+    }
+
+    private String buildImageUrlFromName(String name) {
+        return name.toLowerCase()
+                  .trim()
+                  .replaceAll("\\s+", "_")
+                  + ".jpg";
+    }
 
 }

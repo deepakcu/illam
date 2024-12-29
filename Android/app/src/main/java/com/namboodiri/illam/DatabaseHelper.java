@@ -156,6 +156,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 p.name = cursor.getString(1);
                 p.father = cursor.getString(2);
                 p.mother = cursor.getString(3);
+                
+                p.imageUrl = p.name.toLowerCase().replace(" ", "_") + ".jpeg";
                 if(FuzzySearch.tokenSetPartialRatio(key, p.name)>70) {
                     p.score = FuzzySearch.tokenSetPartialRatio(key, p.name);
                     candidates.add(p);
