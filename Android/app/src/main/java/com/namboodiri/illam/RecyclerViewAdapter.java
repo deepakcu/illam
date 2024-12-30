@@ -34,27 +34,45 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.myTextView.setText(myValues.get(position));
-        String imageUrl = buildImageUrlFromName(myValues.get(position));
+        final String name = myValues.get(position);
+        holder.myTextView.setText(name);
         
-        // Check if image exists in assets
+        // Load profile image using the same logic as ResultsActivity
+        loadProfileImage(holder.profileImageView, name);
+    }
+
+    private void loadProfileImage(ImageView imageView, String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return;
+        }
+
+        String imageUrl = buildImageUrlFromName(name);
+        
+        // Try lowercase .jpg first
         try {
             context.getAssets().open(imageUrl);
             imageUrl = "file:///android_asset/" + imageUrl;
         } catch (IOException e) {
-            imageUrl = "file:///android_asset/profile_def.png"; // Image doesn't exist, set empty URL
+            // If not found, try uppercase .JPG
+            try {
+                String upperCaseUrl = imageUrl.replace(".jpg", ".JPG");
+                context.getAssets().open(upperCaseUrl);
+                imageUrl = "file:///android_asset/" + upperCaseUrl;
+            } catch (IOException e2) {
+                imageUrl = "file:///android_asset/profile_def.png";
+            }
         }
         
-        Log.e("ILLAM IMAGE", imageUrl);
         Glide.with(context)
             .load(imageUrl)
             .placeholder(R.drawable.profile)
             .error(R.drawable.profile)
-            .circleCrop()
-            .into(holder.profileImageView);
+            .circleCrop()  // Use circleCrop for spouse/children images
+            .into(imageView);
     }
 
     private String buildImageUrlFromName(String name) {
+        if (name == null) return "";
         return name.toLowerCase()
                   .trim()
                   .replaceAll("\\s+", "_")

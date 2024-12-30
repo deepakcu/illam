@@ -127,9 +127,9 @@ public class ResultsActivity extends AppCompatActivity {
         llm2.setOrientation(LinearLayoutManager.VERTICAL);
         child.setLayoutManager(llm2);
 
-        // Get references to all three CircleImageViews
-        CircleImageView nameImage = findViewById(R.id.profile_image_name);    // You'll need to add this ID
-        CircleImageView fatherImage = findViewById(R.id.profile_image_father); // You'll need to add this ID
+        // Get references to all three ImageViews
+        ImageView nameImage = findViewById(R.id.profile_image_name);    
+        CircleImageView fatherImage = findViewById(R.id.profile_image_father); 
         CircleImageView motherImage = findViewById(R.id.profile_image);       // This one exists
 
         // Load images for each person
@@ -143,25 +143,37 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     private void loadProfileImage(ImageView imageView, String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return;
+        }
+
         String imageUrl = buildImageUrlFromName(name);
         
-        // Check if image exists in assets
+        // Try lowercase .jpg first
         try {
             getAssets().open(imageUrl);
             imageUrl = "file:///android_asset/" + imageUrl;
         } catch (IOException e) {
-            imageUrl = "file:///android_asset/profile_def.png";
+            // If not found, try uppercase .JPG
+            try {
+                String upperCaseUrl = imageUrl.replace(".jpg", ".JPG");
+                getAssets().open(upperCaseUrl);
+                imageUrl = "file:///android_asset/" + upperCaseUrl;
+            } catch (IOException e2) {
+                imageUrl = "file:///android_asset/profile_def.png";
+            }
         }
         
         Glide.with(this)
             .load(imageUrl)
             .placeholder(R.drawable.profile)
             .error(R.drawable.profile)
-            .circleCrop()
+            .fitCenter()  // Use fitCenter for main image, circleCrop for others
             .into(imageView);
     }
 
     private String buildImageUrlFromName(String name) {
+        if (name == null) return "";
         return name.toLowerCase()
                   .trim()
                   .replaceAll("\\s+", "_")
